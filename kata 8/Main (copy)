@@ -1,0 +1,22 @@
+import java.util.Arrays; 
+
+class Main {
+  public static void main(String[] args) {
+    
+    int a = 0;
+    int b = 5;
+       int[] arr = new int[b-a+1];
+       for(int i = a; i < b+1; i++){
+            arr[i-a] = i ;
+         System.out.println(i);
+          }
+    System.out.println(Arrays.toString(arr)); 
+    
+    
+    
+    }
+     
+
+    
+  }
+

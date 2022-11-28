@@ -1,0 +1,141 @@
+
+
+class Main {
+  public static void main(String[] args) {
+  long startTime = System.nanoTime();
+
+       int fieldDiameter = 2126811960;   //****
+       double eatenRatio = 0.11;  //****
+       double cosAlfa = 0.0;
+       double cosBeta = 0.0;
+       //---------------------------------------
+       double fieldRadius = fieldDiameter / 2.0;
+       double fieldArea = Math.PI * fieldRadius * fieldRadius;  
+       //---------------------------------------
+       double ropeLength = 0.0;
+       double ropeCoverRatio = 0.0;
+    
+       double bin = fieldDiameter ;
+       double div = 5;
+       double bin2 = 0.0;
+
+    if(fieldDiameter == 0 || eatenRatio == 0){
+       System.out.println(0);
+    }else if(eatenRatio == 1){
+       System.out.println(fieldDiameter);
+    }else{  
+     while((ropeCoverRatio) != eatenRatio + 0.000000000001 && bin > 1 ){
+                
+              
+          if(ropeCoverRatio < eatenRatio ){    
+              bin  = bin - bin / div;
+              ropeLength = ropeLength + bin;
+              div = div - 0.005;
+              bin2 = (eatenRatio)-(ropeCoverRatio );
+ 
+    //---------------------------------------
+              cosAlfa = (2.0 * fieldRadius * fieldRadius - (ropeLength * ropeLength))/(2.0 * fieldRadius * fieldRadius);
+       double acosAlfa = Math.acos(cosAlfa);
+       double degreeAlfa = acosAlfa * 180.0 / Math.PI; 
+    //---------------------------------------
+
+              cosBeta = (fieldRadius * fieldRadius + ropeLength * ropeLength - (fieldRadius * fieldRadius))/(2.0 * fieldRadius * ropeLength);
+       double acosBeta = Math.acos(cosBeta);
+       double degreeBeta = acosBeta * 180.0 / Math.PI; 
+    //---------------------------------------
+       double heightTriangle = Math.sqrt(fieldRadius * fieldRadius - (ropeLength/2.0) * (ropeLength/2.0));
+       double triangleArea = (heightTriangle * ropeLength) / 2.0 ;
+
+       double  sectorAreaField = degreeAlfa / 360.0 * Math.PI * fieldRadius * fieldRadius;
+       double  sectorAreaRope = degreeBeta / 360.0 * Math.PI * ropeLength * ropeLength;
+
+       double segmentAreaField = sectorAreaField - triangleArea;
+
+       double areaIntersection = (segmentAreaField + sectorAreaRope) * 2.0;
+              ropeCoverRatio = (areaIntersection / fieldArea);       //****
+       double eatenRatioArea = fieldArea * eatenRatio ;
+       
+    //---------------------------------------
+  
+            }else{
+              ropeLength = ropeLength - bin;
+              bin  = bin/div;
+              ropeCoverRatio = 0;
+             
+            }
+         }
+      }    
+      //******************************************************************
+       int ropeLength2 = (int)Math.round(ropeLength);
+        System.out.println(ropeLength2);
+       ropeLength =  ropeLength2;
+         
+     while((ropeCoverRatio) <= eatenRatio + 0.0000000001){
+                
+                 //System.out.println(ropeLength + " -- " + ropeCoverRatio);
+                 
+       ropeLength = ropeLength + 1.0;
+    
+       
+     
+       
+    //---------------------------------------
+              cosAlfa = (2.0 * fieldRadius * fieldRadius - (ropeLength * ropeLength))/(2.0 * fieldRadius * fieldRadius);
+       double acosAlfa = Math.acos(cosAlfa);
+       double degreeAlfa = acosAlfa * 180.0 / Math.PI; 
+    //---------------------------------------
+
+              cosBeta = (fieldRadius * fieldRadius + ropeLength * ropeLength - (fieldRadius * fieldRadius))/(2.0 * fieldRadius * ropeLength);
+       double acosBeta = Math.acos(cosBeta);
+       double degreeBeta = acosBeta * 180.0 / Math.PI; 
+    //---------------------------------------
+       double heightTriangle = Math.sqrt(fieldRadius * fieldRadius - (ropeLength/2.0) * (ropeLength/2.0));
+       double triangleArea = (heightTriangle * ropeLength) / 2.0 ;
+
+       double  sectorAreaField = degreeAlfa / 360.0 * Math.PI * fieldRadius * fieldRadius;
+       double  sectorAreaRope = degreeBeta / 360.0 * Math.PI * ropeLength * ropeLength;
+
+       double segmentAreaField = sectorAreaField - triangleArea;
+
+       double areaIntersection = (segmentAreaField + sectorAreaRope) * 2.0;
+              ropeCoverRatio = (areaIntersection / fieldArea);       //****
+       double eatenRatioArea = fieldArea * eatenRatio ;
+       
+    //---------------------------------------
+    // == loop if ropeCoverRatio more then  eatenRatio > 
+       
+              //System.out.println((fieldArea)+ " fieldArea " ); 
+    //System.out.println((acosAlfa)+ " acosAlfa " ); 
+   // System.out.println((degreeBeta)+ " degreeBeta " ); 
+    //System.out.println((triangleArea)+ " triangleArea " ); 
+   // System.out.println((segmentAreaField)+ " segmentAreaField " ); 
+   // System.out.println((ropeCoverRatio)+ " ropeCoverRatio " ); 
+    //System.out.println((eatenRatioArea)+ " eatenRatioArea " ); 
+      System.out.println((ropeLength) + " ropeLength " + (ropeCoverRatio)+ " ropeCoverRatio " + eatenRatio + "eatenRatio " + (Math.ceil(ropeCoverRatio*100.00)) + " ropecover ceiling");  
+        
+          }
+         
+       System.out.println (((int)(ropeLength))-1);
+    
+       
+        
+
+  
+
+ /////////////////==================////////////////////   
+    long endTime = System.nanoTime();
+    long timeElapsed = endTime - startTime;
+    System.out.println("Execution time in miliseconds: " + timeElapsed / 1000000);
+
+    
+          }
+    
+    
+    
+    
+    
+     
+
+    
+  }
+

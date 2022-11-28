@@ -1,0 +1,160 @@
+import java.util.ArrayList;
+
+class Main {
+  public static void main(String[] args) {
+      ArrayList <Long> asd = new ArrayList<>();
+      int aa = 11;
+      int bb = 22;
+      asd.add((long)aa);
+      asd.add((long)bb);
+
+      float papa = 20.12f;
+      double portion = 10;
+      double vvportion = papa + portion;
+      System.out.println(vvportion);
+    
+      System.out.println(asd);
+      System.out.println(asd.size());
+  }
+}
+
+
+===================================================================
+
+import java.util.ArrayList;
+
+class Main {
+  public static void main(String[] args) {
+      int someNumber = 246;
+      int binNum = 1; 
+      
+      
+        for(int i = 1; i < someNumber; i = i+1 ){
+          if(someNumber % i == 0){
+            int divRes = someNumber/i;
+            int sqDiv = divRes*divRes;
+            binNum = binNum + sqDiv;
+            
+          }
+          
+        }
+      System.out.println(binNum); 
+      }
+
+  }
+===================================================================
+
+
+import java.util.Arrays;
+import java.util.ArrayList;
+//import java.util.List;
+  
+class Main {
+  public static void main(String[] args) {
+    int startN = 1;
+    int endN = 250;
+    
+    ArrayList <Integer[]> resutList = new ArrayList<Integer[]>();
+
+      
+    for(int j = startN; j <= endN; j = j+1){
+      //System.out.print(j + " ");
+      Integer[] arrBin = new Integer[2];
+      int someNumber = j;
+      int binNum = 1; 
+      
+            for(int i = 1; i < someNumber; i = i+1 ){
+                if(someNumber % i == 0){
+                  int divRes = someNumber/i;
+                  int sqDiv = divRes*divRes;
+                  binNum = binNum + sqDiv;
+                  
+                }
+                
+              }
+            
+            ////////////////////////////////////////////////////////////
+            double sqBinNum = Math.sqrt(binNum); 
+            //System.out.println(sqBinNum); 
+            if (sqBinNum % 1 == 0){
+                //System.out.println(someNumber + " " + binNum);
+                arrBin[0] = someNumber;
+                arrBin[1] = binNum;
+                System.out.println(Arrays.toString(arrBin));
+                //System.out.println(someNumber); 
+                //System.out.println(binNum); 
+                resutList.add(arrBin);
+                System.out.println(Arrays.deepToString(resutList.toArray()));
+              
+           
+     // }else{
+      //    boolean resul = (sqBinNum % 1 == 0) ? true : false; 
+          //System.out.println(false);
+        }
+      }
+      
+      //System.out.println(resutList);
+      //System.out.println(Arrays.deepToString(resutList.toArray()));
+      //System.out.println(Arrays.toString(arrBin));
+     }
+    
+
+  }
+==========================ooooooooo=============================
+
+import java.util.Arrays;
+import java.util.ArrayList;
+
+
+class Main {
+  public static void main(String[] args) {
+    long startN = 1;
+    long endN = 628;
+    
+    ArrayList <Long[]> resutList = new ArrayList<Long[]>();
+    for(long j = startN; j <= endN; j = j+1){
+      
+      Long[] arrBin = new Long[2];
+      long someNumber = j;
+      long binNum = 1; 
+      
+            for(long i = 1; i < someNumber; i = i+1 ){
+                if(someNumber % i == 0){
+                  long divRes = someNumber/i;
+                  long sqDiv = divRes*divRes;
+                  binNum = binNum + sqDiv;
+                  }
+              }
+            
+            double sqBinNum = Math.sqrt(binNum);          
+            if (sqBinNum % 1 == 0){        
+                arrBin[0] = someNumber;
+                arrBin[1] = binNum;
+                resutList.add(arrBin);
+        }
+      } 
+      System.out.println(Arrays.deepToString(resutList.toArray()));
+     }
+  }
+===================oooooooooo=============================
+import java.util.Arrays;
+import java.util.ArrayList;
+
+
+class Main {
+  public static void main(String[] args) {
+
+      String numberString = "45385593107843568";
+      String resultBin = "";
+      int size = numberString.length();
+      char[] charBin= new char[size];
+    
+      for(int i=0; i < size; i++){
+         int valueBin = numberString.charAt(i);
+         String rez = (valueBin < 53) ? "0" : "1" ;
+         resultBin = resultBin + rez; 
+     }
+    System.out.println(resultBin);
+
+  }
+ }

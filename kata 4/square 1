@@ -1,0 +1,111 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+
+class Main {
+  public static void main(String[] args) {
+  long startTime = System.nanoTime();
+    
+      long stVal = 14;
+      long sqVal = stVal*stVal; //225
+      long binV = sqVal-1;          //224 for start
+      ArrayList<Long> arrVal = new  ArrayList<>();
+      
+    while(binV > 0){
+      //System.out.println(binV);
+      double stepResult = Math.sqrt(binV);
+         if(stepResult % 1 == 0){
+             //System.out.println(stepResult+".."+stepResult*stepResult+".."+binV);
+             binV = sqVal - ((long)stepResult*(long)stepResult);
+             sqVal = binV;  
+             arrVal.add((long)stepResult);
+         }else{
+             binV =   binV - 1 ;
+           }
+    }
+    //System.out.println(arrVal);
+    /////---------------------------------------------------------------------
+    ArrayList<Boolean> lag = new ArrayList<>();
+    int size = arrVal.size();
+      for(int i = 0; i < size-1; i++) {
+         //System.out.println(arrVal.get(i) + ".." + arrVal.get(i+1) );
+       if((arrVal.get(i)-arrVal.get(i+1)) > 0){
+            lag.add(true);   
+       }else{
+            lag.add(false);
+        }
+      }
+    //System.out.println(lag);
+    /////---------------------------------------------------------------------  
+    if(lag.contains(false)){
+          long originVal =  arrVal.get(0); //first value to start
+          long sumBin = 0;
+          int countBin = 0;
+          int stepUp = 0;
+          ArrayList<Long> calArr = new ArrayList<>();   
+          for(long i = originVal; i > 0; i--){
+               calArr.add(i);
+             }
+          //long xxx = 0;
+          //calArr.add(xxx);
+          
+          ArrayList<Long> arrBin = new ArrayList<>();   //to put values for final
+          
+          while (sumBin != stVal*stVal ) {
+               
+               long sqValue = calArr.get(countBin)*calArr.get(countBin); 
+              
+                    
+                    if(sumBin < stVal*stVal && countBin < originVal-1){
+                      
+                         arrBin.add(sqValue);
+                         sumBin = sumBin + sqValue;
+                         countBin = countBin +1;
+                      }else if(sumBin > stVal*stVal && countBin < originVal-1){
+                         sumBin = sumBin - calArr.get(countBin-1)*calArr.get(countBin-1);
+                         arrBin.remove(calArr.get(countBin-1)*calArr.get(countBin-1));  
+                      //countBin = countBin +1;
+                      }else if(countBin == originVal-1 && stepUp <= countBin-1){
+                         countBin = stepUp;     
+                         stepUp = stepUp + 1;
+                         sumBin = 0;
+                         arrBin.clear();
+                     
+                      }else if(stepUp >= countBin-1){
+                         arrBin.clear();
+                         System.out.println(".........");
+                         break;
+                                                  
+                      }
+                      
+                
+               
+           // System.out.println(sumBin + " " + stVal*stVal + " " + countBin + " " + originVal + ".." + stepUp);  
+                System.out.println(arrBin); 
+                
+                //System.out.println(calArr);  
+            
+              }
+
+
+
+
+
+
+      
+      
+      //System.out.println(lag);
+
+
+      
+    }else{
+      System.out.println(arrVal);
+    }
+ /////////////////==================////////////////////   
+    long endTime = System.nanoTime();
+    long timeElapsed = endTime - startTime;
+    System.out.println("Execution time in miliseconds: " + timeElapsed / 1000000);
+   }
+  }
+
