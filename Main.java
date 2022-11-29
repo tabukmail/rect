@@ -193,7 +193,7 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
    
 
 
-System.out.println(Arrays.deepToString(arr) + " arr not converted yet"); 
+//System.out.println(Arrays.deepToString(arr) + " arr not converted yet"); 
 
     // 2.
     // voodoo---------------------------------------------------------------
@@ -241,6 +241,14 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
 //******* Logic to calculate area SUM with maped ranges before next loop and set new start **  **  ** //
      
       int curMax = tempBox.get(tempBox.size()-1).get(0);  //current max X point to switch to inside calculation
+        
+          if(rectCounter == arr.length - 1){     // last loop add xbox last range and curMax
+                    
+                    curMax = arr[arr.length - 1][2];
+                    xBox.add(arr[arr.length - 1][2]);
+                  }
+               
+      //System.out.println("[curMax]   " + curMax);
       if(inBox.contains(1)){
                             
                         for(ArrayList <Integer> i : tempBox){
@@ -372,17 +380,32 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                           
                             
                           }
+
+
+   //                if(rectCounter == arr.length - 1){
+   //                 
+   //                  curMax = arr[arr.length - 1][2];
+   //                }
                 
                // System.out.println("########### " + tempBox);
                   for(int n =0; n < tempBox.size(); n++){
                                     //int a = tempBox.get(n).get(0);
                                     int b = tempBox.get(n).get(2);
+                                   
                   
                     if(b > curMax){
                             midTemp = (ArrayList)tempBox.get(n).clone();
                             midTemp.set(0, curMax);
                             midTempBox.add(midTemp);
-                                    
+                            
+                        if(rectCounter == arr.length - 1){
+                                 //  System.out.println("MIDTEMP" + midTemp + "  XBOX " + xBox);   
+                         }
+
+
+
+
+                      
                                     }
 
                          }
@@ -390,10 +413,12 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                 tempBox.clear();
                 tempBox.addAll(midTempBox);
                
+        
                  if(rectCounter == arr.length - 1){
                           slicerPalet.addAll(midTempBox);
                           tempBox.clear();
-                         //  System.out.println("[last LOOP]   ");
+                          // System.out.println("[last LOOP]   " + midTempBox);
+                          //System.out.println("[last LOOP ??????]   " + midTempBox +  "  CMAX " + curMax +  "   RECT COUNTER " + rectCounter + "  TBOXXX " + tempBox);
                          }
 
 
@@ -423,7 +448,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                 
                            
               // }
-              
+    //      System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());    
            Collections.sort(slicerPalet, new Comparator<ArrayList<Integer>>() {    
                         @Override
                         public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
@@ -431,7 +456,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                         }               
                 });
 
-        // System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());
+         
          //System.out.println("[**] INBOX  " + xBox);
 
                                    ArrayList <ArrayList<Integer>> comboBox = new ArrayList<>();
@@ -449,12 +474,12 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                                             if(slicerPalet.get(e).get(0) == xBox.get(f) && e < slicerPalet.size() ){
                                                            if(comboBox.size() == 0){
                                                               comboBox.add(slicerPalet.get(e));
-                                                             // System.out.println("COMBO BOX:: " + comboBox);
+                                                              //System.out.println("COMBO BOX:: " + comboBox);
                                                             }   
 
                                                             if(slicerPalet.get(e).get(1) > comboBox.get(comboBox.size()-1).get(3)){
                                                               comboBox.add(slicerPalet.get(e));
-                                                             // System.out.println("CB ADD N:: " + comboBox);
+                                                              //System.out.println("CB ADD N:: " + comboBox);
                                                             }   
                                                             
                                                             if(slicerPalet.get(e).get(1) <= comboBox.get(comboBox.size()-1).get(3)){
@@ -464,7 +489,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                                                                int min = Math.min(slicerPalet.get(e).get(1), comboBox.get(comboBox.size()-1).get(1));
                                                                comboBox.get(comboBox.size()-1).set(1, min);
                                                                comboBox.get(comboBox.size()-1).set(3, max);
-                                                              // System.out.println("CB ADD O:: " + comboBox);
+                                                               //System.out.println("CB ADD O:: " + comboBox);
 
 
 
