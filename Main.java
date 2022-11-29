@@ -65,6 +65,59 @@ class Main {
    // return result;
   }
 
+
+
+      // --V3 Method to check two squares intersection taken from 2D Array[] and ArrayList during loop
+  public static boolean olapRecCheck4(ArrayList <Integer> a, ArrayList <Integer> b) {
+
+          int minA = Math.min(a.get(1), a.get(3));
+          int maxA = Math.max(a.get(1), a.get(3));
+          int minB = Math.min(b.get(1), b.get(3));
+          int maxB = Math.max(b.get(1), b.get(3));
+       
+    
+    if (   (minB < minA && minA < maxB) || (minA < minB && minB < maxA)){
+           
+          System.out.println(" ------ olap" + a + b);
+          return true;
+
+      } else {
+          System.out.println(" ------ NON olap" + a + b);
+          return false; //non OLAP
+      
+      
+       }
+    
+   // return result;
+  }
+
+
+
+        // --Method to combine two rectangles
+  public static ArrayList <Integer>  combo(ArrayList <Integer> a, ArrayList <Integer> b) {
+
+          int minA = Math.min(a.get(1), a.get(3));
+          int maxA = Math.max(a.get(1), a.get(3));
+          int minB = Math.min(b.get(1), b.get(3));
+          int maxB = Math.max(b.get(1), b.get(3));
+          int max = Math.max(a.get(3), b.get(3));
+           int min = Math.min(a.get(1), b.get(1));
+
+          a.set(1, min);
+          a.set(3, max);
+
+       // if(minB < minA && minA < maxB){
+       //    a.set(1, minA);
+       //    a.set(3, maxB);
+       // }else if(minA < minB && minB < maxA){
+       //    a.set(1, minA);
+       //    a.set(3, maxB);
+       // }
+       
+    
+      //System.out.println(" ---****--- " + a);
+     return a;
+  }
  
 
 // -- Method to convert int[] to Integer[]
@@ -155,7 +208,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
     Integer sliceStart = 0;
     Integer sliceEnd = 0;
     
-  
+   ArrayList <ArrayList<Integer>> finalBox= new ArrayList<>();
     
     while (rectCounter < arr.length) {
       //System.out.println("N: " + rectCounter + " LOOP");
@@ -172,6 +225,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
           for(int i = 0; i < tempBox.size(); i++){  
                if((arr[rectCounter][0]) < tempBox.get(i).get(2)){
                         inBox.add(0);
+                 // System.out.println((arr[rectCounter][0]) + " " + tempBox.get(i).get(2));
                }else{
                         inBox.add(1);
                        
@@ -185,6 +239,7 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
         tempBox.add(convertor2(arr[rectCounter]));
         //System.out.println("TEMBOX >>> " + tempBox);
 //******* Logic to calculate area SUM with maped ranges before next loop and set new start **  **  ** //
+     
       int curMax = tempBox.get(tempBox.size()-1).get(0);  //current max X point to switch to inside calculation
       if(inBox.contains(1)){
                             
@@ -199,12 +254,14 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
 
                 // for loop tempBox with xBox find set ranges, make the list rectangels, find rect intersection and calculate area
                           ArrayList <Integer> midTemp = new ArrayList<>();
+                          ArrayList <ArrayList<Integer>> slBoxTemp = new ArrayList<>();
                           ArrayList <ArrayList<Integer>> midTempBox = new ArrayList<>();
+                          ArrayList <ArrayList<Integer>> rectRange = new ArrayList<>();
                           
                           for(int k =1; k < xBox.size(); k++){
                             int min = xBox.get(k - 1);
                             int max = xBox.get(k);
-                                                 System.out.println("XBOX" + min);
+                                                 
                              for(int n =0; n < tempBox.size(); n++){
                                     int a = tempBox.get(n).get(0);
                                     int b = tempBox.get(n).get(2);
@@ -214,40 +271,105 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                                               
                                               slicerBox.set(0, min);
                                               slicerBox.set(2, max);
-                                              
-                                                                                        
+
+                                            
+                                             //   for(int e =0; e < rectRange.size(); e++){
+                                             //      System.out.println("Е:: " + rectRange.get(e) + "    S:: " + slicerBox);
+
+                                             // }
+
+                                             //  System.out.println("RR --" + rectRange + "    SB >>" + slicerBox);
+
+                                                                                             
+                                             rectRange.add(slicerBox);
+                                      
+
+                                      
+                                      
+                                             // for(int e =0; e < rectRange.size(); e++){
+                                             //         int maxim = Math.max(rectRange.get(e).get(3), slicerBox.get(3));
+                                             //         int minim = Math.min(rectRange.get(e).get(1), slicerBox.get(1));
+
+                                                   
+                                             //          if(olapRecCheck4(rectRange.get(e), slicerBox)){
+                                             //                         // rectRange.get(e).set(1, minim);
+                                             //                         // rectRange.get(e).set(3, maxim);
+                                             //            combo(rectRange.get(e),slicerBox);
+                                                        
+                                                       
+                                             //          }else{
+                                             //                       rectRange.add(slicerBox);
+                                             //          }
+
+
+                                             // }
+
+
+
+                                       
                                               // if(slicerPalet.size()>0 && slicerBox.get(0) == slicerPalet.get(slicerPalet.size()-1).get(0)){
                                               //   System.out.println("TEST tttt" + slicerBox + slicerPalet.get(slicerPalet.size()-1));
                                               // }                       
                                               
                                               slicerPalet.add(slicerBox);
 
-                                              
+                                             
 
-                                      
-
-                                              //System.out.println("TEST pppppp" + slicerPalet );
-                                            
-                                       //System.out.println("SLICER >>> " + slicerBox);
+                                             // System.out.println("TEST pppppp" + slicerPalet );
+                                             
+                                      // System.out.println("SLICER >>> " + slicerBox);
                                    
+                                       //System.out.println("RR --" + rectRange + "SB >>" + slicerBox);
+                                      
+                                      
+                                      // for(int e =0; e < rectRange.size(); e++){
+                                      //   int maxim = Math.max(rectRange.get(e).get(3), slicerBox.get(3));
+                                      //   int minim = Math.min(rectRange.get(e).get(1), slicerBox.get(1));
+
+                                      //  if(olapRecCheck4(rectRange.get(e), slicerBox)){
+                                      //      //slBoxTemp.add(combo(rectRange.get(e), slicerBox)); 
+                                      //      //++++++++++++++
+                                      //    // slBoxTemp.add(combo(rectRange.get(e), slicerBox));
+                                      //    // slBoxTemp.remove(slBoxTemp.size()-1);
+                                      //  // if(){}
+                                      //       rectRange.get(e).set(1, minim);
+                                      //       rectRange.get(e).set(3, maxim);
+
+                                         
+                                         
+                                      //    System.out.println("R OLAP" + rectRange.get(e));
+                                         
+                                      //  }else{
+                                      //       //slBoxTemp.add(slicerBox);
+                                      //    System.out.println("NON    " +  slicerBox);
+                                      //    rectRange.add(slicerBox);
+                                            
+                                      //  }
+
+                                        
+                                          
+                                      //  // System.out.println("SB" + slBoxTemp);
+                                      //   // System.out.println("RR" + rectRange.get(e) + "SB" + slicerBox + "[ LLL ]" + rectRange.get(e).get(1) + " - "+ rectRange.get(e).get(3) + " && " + slicerBox.get(1) + " - " + slicerBox.get(3) + " FUNC +++ " + olapRecCheck4(rectRange.get(e), slicerBox));
+                                      //  //  System.out.println("RR" + rectRange.get(e) + "SB" + slicerBox);
+
+                                        
+                                        
+                                      // }
+                                      
+                                  
                                     }
-                                    // if(k == xBox.size()-1){
-                                    //  // System.out.println("*** THE LAST POINT");  
-                                    //   int c = tempBox.get(n).get(2);
+                        
+                                }
+                           
+                           // midTempBox = (ArrayList)rectRange.clone();
+                            
+                         rectRange.clear();
+ 
+                            
+                            // System.out.println("RR" + rectRange);
+                            // System.out.println("MTB" + midTempBox);
 
-                                    //     if(b > curMax){
-                                    //         midTemp = (ArrayList)tempBox.get(n).clone();
-                                    //         midTemp.set(0, curMax);
-                                    //         midTempBox.add(midTemp);
-                                    
-                                    //       }
-
-                                   // }
-
-                                    }
-                               
                           
-                                     
                             
                           }
                 
@@ -277,7 +399,8 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
 
         
         
-               System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());
+    //           System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());
+              // System.out.println(" ccccccccccccccccc  "  + midTempBox);
                //System.out.println("{**} RANGE COORD. LIST" + xBox);
                //System.out.println("TEMBOX >>> " + tempBox);
                 
@@ -301,28 +424,82 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
                            
               // }
               
-             // System.out.println("[RECT COMBINE]  " + rectCombine);
+           Collections.sort(slicerPalet, new Comparator<ArrayList<Integer>>() {    
+                        @Override
+                        public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+                            return o1.get(1).compareTo(o2.get(1));
+                        }               
+                });
+
+        // System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());
+         //System.out.println("[**] INBOX  " + xBox);
+
+                                   ArrayList <ArrayList<Integer>> comboBox = new ArrayList<>();
+                                   
+                                  
+                                    
+                                   for(int f =0; f < xBox.size(); f++){
+                                   
+                                          for(int e =0; e < slicerPalet.size(); e++){
+
+                                              
+                                            
+                                            
+                                            
+                                            if(slicerPalet.get(e).get(0) == xBox.get(f) && e < slicerPalet.size() ){
+                                                           if(comboBox.size() == 0){
+                                                              comboBox.add(slicerPalet.get(e));
+                                                             // System.out.println("COMBO BOX:: " + comboBox);
+                                                            }   
+
+                                                            if(slicerPalet.get(e).get(1) > comboBox.get(comboBox.size()-1).get(3)){
+                                                              comboBox.add(slicerPalet.get(e));
+                                                             // System.out.println("CB ADD N:: " + comboBox);
+                                                            }   
+                                                            
+                                                            if(slicerPalet.get(e).get(1) <= comboBox.get(comboBox.size()-1).get(3)){
+                                                              
+
+                                                               int max = Math.max(slicerPalet.get(e).get(3), comboBox.get(comboBox.size()-1).get(3));
+                                                               int min = Math.min(slicerPalet.get(e).get(1), comboBox.get(comboBox.size()-1).get(1));
+                                                               comboBox.get(comboBox.size()-1).set(1, min);
+                                                               comboBox.get(comboBox.size()-1).set(3, max);
+                                                              // System.out.println("CB ADD O:: " + comboBox);
+
+
+
+
+
+                                                              
+                                                            }   
+
+
+
+
+                                              
+                                                         //System.out.println("SP:: " + slicerPalet.get(e));
+                                                         
+                                                      }
+                                             
+                                             }
+                                     finalBox.addAll(comboBox);
+                                     comboBox.clear();
+                                    // System.out.println(" -------------- " );
+                                   }
+
+
+
+
+
+
 
 
         
-
 
                 slicerPalet.clear();
                 midTempBox.clear();
                 xBox.clear();
-
-
-
-
-
-
-
-
-
-
-
-        
-
+                
         
             }  // #######  area calculation stage finish
 
@@ -365,24 +542,6 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
          
       
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-        
       
 
     
@@ -391,6 +550,8 @@ System.out.println(Arrays.deepToString(arr) + " arr not converted yet");
       rectCounter = rectCounter + 1;
 
               }
+
+    System.out.println("[**] FINALLE |||||  " + finalBox);
   
 
 
