@@ -145,7 +145,11 @@ ArrayList <Integer> boxedInt = new ArrayList<>();
 
 
   // -- Method to calculate area
-public static int  area(Object x1,Object y1, Object x2, Object y2 ){
+public static int  area(ArrayList <Integer> rect ){
+     Integer x1 = rect.get(0);
+     Integer y1 = rect.get(1); 
+     Integer x2 = rect.get(2);  
+     Integer y2 = rect.get(3); 
      int area = ((int)x2 - (int)x1)*((int)y2 - (int)y1);
      return area;
   
@@ -209,9 +213,10 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
     Integer sliceEnd = 0;
     
    ArrayList <ArrayList<Integer>> finalBox= new ArrayList<>();
+  int areaBox = 0;
     
     while (rectCounter < arr.length) {
-      //System.out.println("N: " + rectCounter + " LOOP");
+      // System.out.println("N: " + rectCounter + " LOOP");
       //System.out.println(Arrays.toString(arr[rectCounter]));
 
           if(tempBox.size() == 0){
@@ -225,14 +230,17 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
           for(int i = 0; i < tempBox.size(); i++){  
                if((arr[rectCounter][0]) < tempBox.get(i).get(2)){
                         inBox.add(0);
-                 // System.out.println((arr[rectCounter][0]) + " " + tempBox.get(i).get(2));
-               }else{
+                       // System.out.println(inBox + "  "  + "  TB[2]" + tempBox.get(i).get(2) + " REC [0]" +  arr[rectCounter][0]);
+                //  System.out.println((arr[rectCounter][0]) + " " + tempBox.get(i).get(2));
+               }else{                                                    // ((arr[rectCounter][0]) >= tempBox.get(i).get(2) )
                         inBox.add(1);
-                       
+                  // System.out.println(inBox);
+                 // System.out.println(inBox + "  "  + "  TB[2]" + tempBox.get(i).get(2) + " REC [0]" +  arr[rectCounter][0]);
+                 
                }
                  
           }
-        // System.out.println(inBox); 
+         
         // System.out.println(inBox.contains(1)); 
             
         
@@ -248,8 +256,10 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
                     xBox.add(arr[arr.length - 1][2]);
                   }
                
-      //System.out.println("[curMax]   " + curMax);
-      if(inBox.contains(1)){
+      // System.out.println("[curMax]   " + curMax);
+      // System.out.println("[xBox]   " + xBox);
+      
+      if(inBox.contains(1) || curMax == arr[arr.length - 1][2]){
                             
                         for(ArrayList <Integer> i : tempBox){
                                  xBox.add(i.get(0));
@@ -274,7 +284,7 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
                                     int a = tempBox.get(n).get(0);
                                     int b = tempBox.get(n).get(2);
                                     if(min >= a && max <= b){
-                                              //System.out.println("TEST" + tempBox.get(n) + min + max);
+                                              //System.out.println("TEST" + tempBox.get(n) + min + max + " " + xBox);
                                               slicerBox= (ArrayList)tempBox.get(n).clone();
                                               
                                               slicerBox.set(0, min);
@@ -286,10 +296,11 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
 
                                              // }
 
-                                             //  System.out.println("RR --" + rectRange + "    SB >>" + slicerBox);
+                                               
 
                                                                                              
                                              rectRange.add(slicerBox);
+                                           // System.out.println("RR --" + rectRange + "    SB >>" + slicerBox);
                                       
 
                                       
@@ -323,7 +334,7 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
 
                                              
 
-                                             // System.out.println("TEST pppppp" + slicerPalet );
+                                              //System.out.println("TEST pppppp" + slicerPalet );
                                              
                                       // System.out.println("SLICER >>> " + slicerBox);
                                    
@@ -376,6 +387,7 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
                             
                             // System.out.println("RR" + rectRange);
                             // System.out.println("MTB" + midTempBox);
+                           // System.out.println("xBox" + xBox);
 
                           
                             
@@ -448,7 +460,7 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
                 
                            
               // }
-    //      System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());    
+          // System.out.println("[**] PALETTE |||||  " + slicerPalet + " " + slicerPalet.size());    
            Collections.sort(slicerPalet, new Comparator<ArrayList<Integer>>() {    
                         @Override
                         public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
@@ -460,54 +472,65 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
          //System.out.println("[**] INBOX  " + xBox);
 
                                    ArrayList <ArrayList<Integer>> comboBox = new ArrayList<>();
-                                   
+                                   ArrayList <ArrayList<Integer>> equalBox = new ArrayList<>();
                                   
                                     
                                    for(int f =0; f < xBox.size(); f++){
                                    
                                           for(int e =0; e < slicerPalet.size(); e++){
 
-                                              
                                             
-                                            
-                                            
-                                            if(slicerPalet.get(e).get(0) == xBox.get(f) && e < slicerPalet.size() ){
+                                            if(slicerPalet.get(e).get(0) == xBox.get(f) && e < slicerPalet.size() ){ //second argument might be deleted
                                                            if(comboBox.size() == 0){
                                                               comboBox.add(slicerPalet.get(e));
-                                                              //System.out.println("COMBO BOX:: " + comboBox);
+                                                              //System.out.println("COMBO BOX ::::: " + comboBox);
                                                             }   
 
                                                             if(slicerPalet.get(e).get(1) > comboBox.get(comboBox.size()-1).get(3)){
                                                               comboBox.add(slicerPalet.get(e));
-                                                              //System.out.println("CB ADD N:: " + comboBox);
+                                                               //System.out.println("CB ADD N ::::: " + slicerPalet.get(e));
+                                                              
                                                             }   
                                                             
                                                             if(slicerPalet.get(e).get(1) <= comboBox.get(comboBox.size()-1).get(3)){
                                                               
-
                                                                int max = Math.max(slicerPalet.get(e).get(3), comboBox.get(comboBox.size()-1).get(3));
                                                                int min = Math.min(slicerPalet.get(e).get(1), comboBox.get(comboBox.size()-1).get(1));
                                                                comboBox.get(comboBox.size()-1).set(1, min);
                                                                comboBox.get(comboBox.size()-1).set(3, max);
-                                                               //System.out.println("CB ADD O:: " + comboBox);
-
-
-
-
-
-                                                              
+                                                               
                                                             }   
-
-
-
-
-                                              
-                                                         //System.out.println("SP:: " + slicerPalet.get(e));
-                                                         
+                                                                                     //System.out.println("SP:: " + slicerPalet.get(e));
+                                                         // if(comboBox.size() > 1){
+                                                         //   System.out.println("CB ADD O :::::: " + comboBox.get(1));
+                                                         // }else{
+                                                         //   System.out.println("CB ADD O :::::: " + comboBox.get(0));
+                                                         // }
+                                                            // System.out.println("CB ADD O :::::: " + comboBox);
+                                                  
+                                                                                     
                                                       }
-                                             
+                                          
+                                               
                                              }
-                                     finalBox.addAll(comboBox);
+                                    
+                                    
+                                     //System.out.println("CB ADD O :::::: " + comboBox);
+                                     if(comboBox.size() == 1){
+                                        areaBox = areaBox + area(comboBox.get(0));
+                                       // System.out.println("AREA :: " + area(comboBox.get(0)));
+                                       // System.out.println("AREA :: " + areaBox);
+                                      // System.out.println("CB ADD O :::::: " + comboBox.get(0));
+                                     }else if(comboBox.size() > 1){
+                                       for( ArrayList <Integer> o : comboBox){
+                                         areaBox = areaBox + area(o);
+                                        // System.out.println("CB ADD O :::::: " + o);
+                                         // System.out.println("AREA :: " + area(o));
+                                         // System.out.println("AREA :: " + areaBox);
+                                         }
+                                     }
+
+                                    finalBox.addAll(comboBox);  
                                      comboBox.clear();
                                     // System.out.println(" -------------- " );
                                    }
@@ -575,9 +598,11 @@ public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
       rectCounter = rectCounter + 1;
 
               }
+    
 
     System.out.println("[**] FINALLE |||||  " + finalBox);
-  
+    
+    System.out.println("AREA :: " + areaBox);
 
 
 
